@@ -33,4 +33,16 @@ public class UserService {
     public List<User> getAllUsersDetails(){
         return userRepository.findAll();
     }
+//
+//    public Optional<User> updateUserDetails(long id, User user){
+//      Optional<User> usr = userRepository.findById(id);
+//      if(usr.isPresent()) {
+//
+//      }
+//
+//    }
+
+    public void deleteUserDetails(long id){
+         userRepository.deleteById(id);
+    }
 }

@@ -39,4 +39,21 @@ public class UserController {
         return userService.getAllUsersDetails();
 
     }
+
+//    @PutMapping("/user/{id}")
+//    public ResponseEntity<User> updateUserDetails(@PathVariable long id, @RequestBody User user){
+//        Optional<User> user1 = userService.updateUserDetails(id, user);
+//        if(user1.isPresent()){
+//            return new ResponseEntity<User>(user, HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<User> deleteUserDetails(@PathVariable long id){
+         userService.deleteUserDetails(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
