@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getSingleUserDetails(@PathVariable long id) throws NoDataFoundException {
+    public ResponseEntity<User> getSingleUserDetails(@PathVariable long id)  {
         Optional<User> user = userService.getSingleUserDetails(id);
         if(user.isPresent()){
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
@@ -40,16 +40,12 @@ public class UserController {
 
     }
 
-//    @PutMapping("/user/{id}")
-//    public ResponseEntity<User> updateUserDetails(@PathVariable long id, @RequestBody User user){
-//        Optional<User> user1 = userService.updateUserDetails(id, user);
-//        if(user1.isPresent()){
-//            return new ResponseEntity<User>(user, HttpStatus.OK);
-//        }else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
+    @PutMapping("/user/{id}")
+    public ResponseEntity<User> updateUserDetails(@PathVariable long id, @RequestBody User user){
+        user.setId(id);
+        User user1 = userService.updateUserDetails(id, user);
+         return new ResponseEntity<>(user1, HttpStatus.OK);
+    }
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<User> deleteUserDetails(@PathVariable long id){

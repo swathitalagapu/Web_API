@@ -33,14 +33,15 @@ public class UserService {
     public List<User> getAllUsersDetails(){
         return userRepository.findAll();
     }
-//
-//    public Optional<User> updateUserDetails(long id, User user){
-//      Optional<User> usr = userRepository.findById(id);
-//      if(usr.isPresent()) {
-//
-//      }
-//
-//    }
+
+    public User updateUserDetails(long id, User user) {
+    User usr = userRepository.findById(user.getId()).orElse(null);
+        usr.setUserId(user.getUserId());
+        usr.setTitle(user.getTitle());
+        usr.setBody(user.getBody());
+        User updatedUser = userRepository.save(usr);
+        return updatedUser;
+    }
 
     public void deleteUserDetails(long id){
          userRepository.deleteById(id);
