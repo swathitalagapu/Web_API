@@ -15,12 +15,34 @@ public class CommentService {
     @Autowired
     CommentRepository commentRepository;
 
-    public Comment createComment(Comment comment, int userId){
-        Optional<Object> comment1 =userRepository.findById((long) userId).map(user -> {
+    public Optional<Comment> createComment(Comment comment, int userId) {
+        Optional<Comment> comment1 = userRepository.findByUserId(userId).map(user -> {
             comment.setUser(user);
             return commentRepository.save(comment);
         });
-        return comment;
+        return comment1;
 
+    }
+
+    //    public void deleteComment(int userId){
+//        Optional<Comment> comment =commentRepository.findByUserId(userId);
+//        if(comment.isPresent()){
+//            commentRepository.deleteByUserId(userId);
+//        }else {
+//            throw new RuntimeException("no data found");
+//        }
+//    }
+    public void deleteComment(int id) {
+        commentRepository.deleteById(id);
+    }
+
+    public Optional<Comment> getSingleComment(Integer id) {
+        Optional<Comment> comment = commentRepository.findById(id);
+        if(comment.isPresent()){
+            return comment;
+        }
+        else{
+            throw new RuntimeException("no data present");
+        }
     }
 }
